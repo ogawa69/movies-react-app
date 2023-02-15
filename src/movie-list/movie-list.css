@@ -1,0 +1,7 @@
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 98%;
+  padding-top: 30px;
+}
