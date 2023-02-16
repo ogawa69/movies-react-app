@@ -1,7 +1,19 @@
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-
-  width: 98%;
+  min-height: 100vh;
+  margin: 0;
   padding-top: 30px;
+}
+
+.movie-list__spinner {
+  align-self: center;
+  margin: 0 auto;
+}
+
+.movie-list__error-alert {
+  align-self: end;
+  height: 100px;
+  width: 300px;
+  margin: 50px;
 }

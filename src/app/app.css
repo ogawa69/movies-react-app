@@ -1,18 +1,16 @@
-html {
-  height: 100%;
-}
-
 body {
-  height: 100%;
   background-color: #e5e5e5;
-}
-
-#root {
-  height: 100%;
 }
 
 .container {
   width: 1010px;
   margin: 0 auto;
   background-color: #fff;
+}
+
+.warning-alert {
+  width: 400px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
 }
