@@ -8,10 +8,15 @@ export default class MovieService {
     return await res.json()
   }
 
-  async searchMovies(value) {
+  async startPage() {
+    const res = await this.getResource(`/trending/all/day?${this._apiKey}`)
+    return res
+  }
+
+  async searchMovies(query, page = 1) {
     const res = await this.getResource(
-      `/search/movie?${this._apiKey}&language=en-US&query=${value}&page=1&include_adult=false`
+      `/search/movie?${this._apiKey}&language=en-US&query=${query}&page=${page}&include_adult=false`
     )
-    return res.results
+    return res
   }
 }

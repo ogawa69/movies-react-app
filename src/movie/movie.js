@@ -7,8 +7,8 @@ const { Title, Paragraph } = Typography
 
 export default class Movie extends Component {
   render() {
-    const { title, release_date, overview, poster_path } = this.props
-    const releaseDate = format(new Date(release_date), 'MMMM dd, yyyy')
+    const { title, release_date = '', overview, poster_path } = this.props
+    const releaseDate = release_date.length ? format(new Date(release_date), 'MMMM dd, yyyy') : ''
     const cutOverview = (string) => {
       if (string) {
         const arr = string.split(' ')
