@@ -89,19 +89,21 @@ export default class Movie extends Component {
 
   getMovieRate = () => {
     const rateData = JSON.parse(localStorage.getItem('rateData'))
-    rateData.forEach((el) => {
-      if (el.id === this.props.id) {
-        this.setState({
-          rate: el.rate,
-        })
-      }
-    })
+    if (rateData) {
+      rateData.forEach((el) => {
+        if (el.id === this.props.id) {
+          this.setState({
+            rate: el.rate,
+          })
+        }
+      })
+    }
   }
 
   render() {
     const { title, release_date = '', overview, poster_path, vote_average, genre_ids } = this.props
     const { rate } = this.state
-
+    console.log(rate)
     const releaseDate = release_date.length ? format(new Date(release_date), 'MMMM dd, yyyy') : ''
 
     const rateCircle = Number(vote_average * 10)

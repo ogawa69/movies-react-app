@@ -36,7 +36,6 @@ export default class App extends Component {
     if (!prevGuestToken) {
       this.movieService.getGuestToken().then(this.onGuestSessionLoaded, (err) => console.log(err))
     }
-    this.movieService.startPage().then(this.onDataLoaded, this.onDataError)
     this.movieService.getGenre().then(this.onTagsLoaded, (err) => console.log(err))
   }
 
@@ -124,7 +123,13 @@ export default class App extends Component {
           searchValue={searchValue}
         />
         <MovieServiceGenresProvider value={tags}>
-          <MovieList guestToken={guestToken} moviesData={items} isLoaded={isLoaded} error={error} />
+          <MovieList
+            menuSelected={menuSelected}
+            guestToken={guestToken}
+            moviesData={items}
+            isLoaded={isLoaded}
+            error={error}
+          />
         </MovieServiceGenresProvider>
 
         <PaginationPanel
