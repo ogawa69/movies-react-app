@@ -19,4 +19,35 @@ export default class MovieService {
     )
     return res
   }
+
+  async getGenre() {
+    const genres = await this.getResource(`/genre/movie/list?${this._apiKey}&language=en-US`)
+    return genres.genres
+  }
+
+  async getGuestToken() {
+    const res = this.getResource(`/authentication/guest_session/new?${this._apiKey}`)
+    return res
+  }
+
+  async rateMovie(movieId, rate) {
+    const guestToken = JSON.parse(localStorage.getItem('guestToken'))
+    const rateObj = {
+      value: rate,
+    }
+    await fetch(`${this._apiBase}/movie/${movieId}/rating?${this._apiKey}&guest_session_id=${guestToken}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(rateObj),
+    })
+  }
+
+  async getRatedMovie(token) {
+    const res = this.getResource(
+      `/guest_session/${token}/rated/movies?${this._apiKey}&language=en-US&sort_by=created_at.asc`
+    )
+    return res
+  }
 }

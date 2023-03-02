@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Offline } from 'react-detect-offline'
+import { Menu } from 'antd'
 import './app.css'
 
 import MovieService from '../movie-service'
 import MovieList from '../movie-list'
 import SearchPanel from '../search-panel'
 import PaginationPanel from '../pagination-panel'
+import { MovieServiceGenresProvider } from '../movie-service-genres-context/movie-service-genres-context'
 
 import NoInternet from './no-internet'
 
@@ -13,16 +15,29 @@ export default class App extends Component {
   movieService = new MovieService()
 
   state = {
+    guestToken: null,
+    menuSelected: 'search',
     searchValue: null,
     isLoaded: false,
     items: [],
+    tags: [],
     currPage: 1,
     pages: null,
     error: null,
   }
 
   componentDidMount() {
-    this.movieService.startPage().then(this.onDataLoaded, this.onError)
+    const prevGuestToken = JSON.parse(localStorage.getItem('guestToken'))
+    if (prevGuestToken) {
+      this.setState({
+        guestToken: prevGuestToken,
+      })
+    }
+    if (!prevGuestToken) {
+      this.movieService.getGuestToken().then(this.onGuestSessionLoaded, (err) => console.log(err))
+    }
+    this.movieService.startPage().then(this.onDataLoaded, this.onDataError)
+    this.movieService.getGenre().then(this.onTagsLoaded, (err) => console.log(err))
   }
 
   onDataLoaded = (res) => {
@@ -34,13 +49,26 @@ export default class App extends Component {
     })
   }
 
-  onError = () => {
+  onDataError = () => {
     this.setState({
       isLoaded: true,
       items: [],
       pages: null,
       error: true,
     })
+  }
+
+  onTagsLoaded = (res) => {
+    this.setState({
+      tags: res,
+    })
+  }
+
+  onGuestSessionLoaded = (res) => {
+    this.setState({
+      guestToken: res.guest_session_id,
+    })
+    localStorage.setItem('guestToken', JSON.stringify(res.guest_session_id))
   }
 
   getData = (string, page) => {
@@ -66,12 +94,39 @@ export default class App extends Component {
     })
   }
 
+  changeMenuSelected = (e) => {
+    this.setState({ menuSelected: e.key })
+    if (e.key === 'rated') {
+      this.movieService.getRatedMovie(this.state.guestToken).then(this.onDataLoaded, this.onDataError)
+    }
+  }
+
   render() {
-    const { searchValue, items, currPage, pages, isLoaded, error } = this.state
+    const { guestToken, menuSelected, searchValue, items, tags, currPage, pages, isLoaded, error } = this.state
+    const menuItems = [
+      {
+        label: 'Search',
+        key: 'search',
+      },
+      {
+        label: 'Rated',
+        key: 'rated',
+      },
+    ]
+
     return (
       <div className="container">
-        <SearchPanel getData={this.getData} changeSearchValue={this.changeSearchValue} searchValue={searchValue} />
-        <MovieList moviesData={items} isLoaded={isLoaded} error={error} />
+        <Menu mode="horizontal" onClick={this.changeMenuSelected} selectedKeys={menuSelected} items={menuItems} />
+        <SearchPanel
+          menuSelected={menuSelected}
+          getData={this.getData}
+          changeSearchValue={this.changeSearchValue}
+          searchValue={searchValue}
+        />
+        <MovieServiceGenresProvider value={tags}>
+          <MovieList guestToken={guestToken} moviesData={items} isLoaded={isLoaded} error={error} />
+        </MovieServiceGenresProvider>
+
         <PaginationPanel
           searchValue={searchValue}
           currPage={currPage}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Input } from 'antd'
 import { debounce } from 'lodash'
+import classNames from 'classnames'
 
 import './search-panel.css'
 
@@ -15,11 +16,12 @@ export default class SearchPanel extends Component {
   debouncedGetData = debounce(() => this.props.getData(this.props.searchValue), 1000)
 
   render() {
-    const { searchValue, changeSearchValue } = this.props
+    const { menuSelected, searchValue, changeSearchValue } = this.props
+    const searchPanelClassName = classNames('search-panel', { hidden: menuSelected !== 'search' })
 
     return (
       <Input
-        className="search-panel"
+        className={searchPanelClassName}
         placeholder="Type to search..."
         value={searchValue}
         onChange={changeSearchValue}

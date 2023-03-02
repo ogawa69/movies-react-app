@@ -6,8 +6,8 @@ import Movie from '../movie/movie'
 import Spinner from './spinner'
 import ErrorAlert from './error-alert'
 
-const MovieList = ({ moviesData, isLoaded, error }) => {
-  const elements = moviesData.map(({ id, ...items }) => <Movie key={id} {...items} />)
+const MovieList = ({ guestToken, moviesData, isLoaded, error }) => {
+  const elements = moviesData.map(({ id, ...items }) => <Movie guestToken={guestToken} id={id} key={id} {...items} />)
 
   const hasData = isLoaded || !error
   const emptyData = isLoaded && moviesData.length === 0 && !error

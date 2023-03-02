@@ -12,6 +12,38 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
+.card__img {
+  width: 183px;
+  height: 281px;
+  border-radius: 0;
+}
+
+.card__description {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 15px;
+}
+
+.card__tittle {
+  display: flex;
+  margin-bottom: 7px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.card__tags {
+  margin-bottom: 7px;
+}
+
 .card__tag {
   margin-bottom: 5px;
+}
+
+.card__rated {
+  margin-top: auto;
 }

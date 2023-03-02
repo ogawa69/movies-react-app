@@ -19,6 +19,7 @@ export default class PaginationPanel extends Component {
         onChange={(page) => changeCurrPage(page)}
         defaultCurrent={currPage}
         total={pages * 10}
+        showSizeChanger={false}
       />
     )
   }

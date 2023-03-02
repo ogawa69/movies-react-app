@@ -1,5 +1,5 @@
 .pagination {
-    position: sticky;
-    width: 400px;
-    transform: translate(20px, -20px);
+  position: sticky;
+  width: 400px;
+  transform: translate(20px, -20px);
 }

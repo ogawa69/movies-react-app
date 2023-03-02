@@ -2,6 +2,10 @@ body {
   background-color: #e5e5e5;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -13,7 +17,7 @@ body {
 
 .warning-alert {
   width: 400px;
-  position: absolute;
+  position: sticky;
   left: 20px;
   bottom: 20px;
 }
