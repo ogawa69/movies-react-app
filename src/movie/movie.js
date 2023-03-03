@@ -106,7 +106,7 @@ export default class Movie extends Component {
   render() {
     const { title, release_date = '', overview, poster_path, vote_average, genre_ids } = this.props
     const { rate } = this.state
-    console.log(rate)
+
     const releaseDate = release_date.length ? format(new Date(release_date), 'MMMM dd, yyyy') : ''
 
     const rateCircle = Number(vote_average * 10)
