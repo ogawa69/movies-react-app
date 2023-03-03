@@ -63,17 +63,19 @@ export default class Movie extends Component {
   }
 
   onChangeRateMovie = (rate) => {
-    this.movieService.rateMovie(this.props.id, rate)
+    const { id } = this.props
+    this.movieService.rateMovie(id, rate)
     const prevRateData = JSON.parse(localStorage.getItem('rateData'))
-    const newRateData = { id: this.props.id, rate: rate }
+    const newRateData = { id: id, rate: rate }
     if (!prevRateData) {
       const res = []
       res.push(newRateData)
-      return localStorage.setItem('rateData', JSON.stringify(res))
-    } else {
+      localStorage.setItem('rateData', JSON.stringify(res))
+    }
+    if (prevRateData) {
       let count = 0
       const res = prevRateData.map((el) => {
-        if (el.id === this.props.id) {
+        if (el.id === id) {
           count++
           return { ...el, rate: rate }
         } else {
@@ -83,8 +85,9 @@ export default class Movie extends Component {
       if (count === 0) {
         res.push(newRateData)
       }
-      return localStorage.setItem('rateData', JSON.stringify(res))
+      localStorage.setItem('rateData', JSON.stringify(res))
     }
+    return this.getMovieRate()
   }
 
   getMovieRate = () => {
