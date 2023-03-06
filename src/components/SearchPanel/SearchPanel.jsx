@@ -3,7 +3,7 @@ import { Input } from 'antd'
 import { debounce } from 'lodash'
 import classNames from 'classnames'
 
-import './search-panel.css'
+import './SearchPanel.css'
 
 export default class SearchPanel extends Component {
   componentDidUpdate(prevProps) {
@@ -13,7 +13,7 @@ export default class SearchPanel extends Component {
     }
   }
 
-  debouncedGetData = debounce(() => this.props.getData(this.props.searchValue), 1000)
+  debouncedGetData = debounce(() => this.props.getData(this.props.searchValue), 500)
 
   render() {
     const { menuSelected, searchValue, changeSearchValue } = this.props

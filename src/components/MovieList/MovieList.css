@@ -6,6 +6,10 @@
   padding-top: 30px;
 }
 
+.movie-list__alert {
+  margin-top: 40px;
+}
+
 .movie-list__spinner {
   align-self: center;
   margin: 0 auto;
@@ -16,4 +20,11 @@
   height: 100px;
   width: 300px;
   margin: 50px;
+}
+
+@media (max-width: 768px) {
+  .movie-list {
+    flex-direction: column;
+    padding: 0;
+  }
 }

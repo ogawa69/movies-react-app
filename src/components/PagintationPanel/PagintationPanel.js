@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Pagination } from 'antd'
-import './pagination-panel.css'
+import './PagintationPanel.css'
 
 export default class PaginationPanel extends Component {
   componentDidUpdate(prevProps) {

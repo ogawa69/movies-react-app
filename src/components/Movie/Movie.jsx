@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { format } from 'date-fns'
 import { v4 as uuidv4 } from 'uuid'
-import './movie.css'
+import './Movie.css'
 import { Progress, Rate, Tag, Typography } from 'antd'
+import { StarFilled } from '@ant-design/icons'
 
-import MovieService from '../movie-service'
-import { MovieServiceGenresConsumer } from '../movie-service-genres-context/movie-service-genres-context'
+import MovieService from '../../services/movie-service'
+import { MovieServiceGenresConsumer } from '../../context'
 const { Paragraph } = Typography
 
 export default class Movie extends Component {
@@ -22,8 +23,8 @@ export default class Movie extends Component {
   cutOverview = (string) => {
     if (string) {
       const arr = string.split(' ')
-      const res = arr.reduce((acc, cur) => (acc.length < 125 ? acc + ' ' + cur : acc))
-      return res.length < 125 ? res : res + ' ...'
+      const res = arr.reduce((acc, cur) => (acc.length < 85 ? acc + ' ' + cur : acc))
+      return res.length < 85 ? res : res + ' ...'
     }
   }
   colorRate = (rate) => {
@@ -137,7 +138,13 @@ export default class Movie extends Component {
           <Paragraph className="card__movie-description" style={{ marginBottom: 0 }}>
             {this.cutOverview(overview)}
           </Paragraph>
-          <Rate className="card__rated" onChange={this.onChangeRateMovie} value={rate}></Rate>
+          <Rate
+            className="card__rated"
+            character={<StarFilled className="star" />}
+            count={10}
+            onChange={this.onChangeRateMovie}
+            value={rate}
+          ></Rate>
         </div>
       </div>
     )

@@ -21,3 +21,17 @@ body {
   left: 20px;
   bottom: 20px;
 }
+
+@media (max-width: 768px) {
+  body {
+    background-color: white;
+  }
+
+  .container {
+    width: 90%;
+  }
+
+  .menu {
+    margin-bottom: 17px;
+  }
+}

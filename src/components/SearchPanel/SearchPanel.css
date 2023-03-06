@@ -1,0 +1,14 @@
+.search-panel {
+  width: 93.5%;
+  height: 40px;
+  margin: 35px;
+}
+
+@media (max-width: 768px) {
+  .search-panel {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}

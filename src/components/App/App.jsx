@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { Offline } from 'react-detect-offline'
-import { Menu } from 'antd'
-import './app.css'
+import { Menu, Alert } from 'antd'
+import './App.css'
 
-import MovieService from '../movie-service'
-import MovieList from '../movie-list'
-import SearchPanel from '../search-panel'
-import PaginationPanel from '../pagination-panel'
-import { MovieServiceGenresProvider } from '../movie-service-genres-context/movie-service-genres-context'
-
-import NoInternet from './no-internet'
+import MovieService from '../../services/movie-service'
+import MovieList from '../MovieList'
+import SearchPanel from '../SearchPanel'
+import PaginationPanel from '../PagintationPanel'
+import { MovieServiceGenresProvider } from '../../context'
 
 export default class App extends Component {
   movieService = new MovieService()
@@ -115,7 +113,13 @@ export default class App extends Component {
 
     return (
       <div className="container">
-        <Menu mode="horizontal" onClick={this.changeMenuSelected} selectedKeys={menuSelected} items={menuItems} />
+        <Menu
+          className="menu"
+          mode="horizontal"
+          onClick={this.changeMenuSelected}
+          selectedKeys={menuSelected}
+          items={menuItems}
+        />
         <SearchPanel
           menuSelected={menuSelected}
           getData={this.getData}
@@ -140,7 +144,14 @@ export default class App extends Component {
           changeCurrPage={this.changeCurrPage}
         />
         <Offline>
-          <NoInternet />
+          <Alert
+            className="warning-alert"
+            message="Warning"
+            description="Internet connection is lost..."
+            type="warning"
+            showIcon
+            closable
+          />
         </Offline>
       </div>
     )

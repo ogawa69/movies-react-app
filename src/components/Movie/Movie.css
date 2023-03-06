@@ -21,6 +21,7 @@
 .card__description {
   display: flex;
   flex-direction: column;
+  width: 268px;
   padding: 20px;
   padding-top: 15px;
 }
@@ -46,4 +47,17 @@
 
 .card__rated {
   margin-top: auto;
+}
+
+.star {
+  width: 10px;
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: auto;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
 }
